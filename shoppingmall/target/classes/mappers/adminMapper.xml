@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybaits.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.mappers.adminMapper">
+
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.sp.domain.CategoryVO">
+		select level, cateName,
+		cateCode, cateCodeRef
+		from goods_category start with cateCodeRef is
+		null connect by prior cateCode = cateCodeRef
+	</select>
+
+
+</mapper>

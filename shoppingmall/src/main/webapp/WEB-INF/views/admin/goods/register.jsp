@@ -125,6 +125,7 @@ textarea#gdsDes {
 	width: 400px;
 	height: 180px;
 }
+.select_img img { margin:20px 0; }
 </style>
 
 </head>
@@ -150,7 +151,8 @@ textarea#gdsDes {
 			<div id="container_box">
 				<h2>상품등록</h2>
 
-				<form role="form" method="post" autocomplete="off">
+				<!-- <form role="form" method="post" autocomplete="off" enctype="multipart/form-data"> -->
+				<form role="form" method="post" autocomplete="off" >
 					<div class="inputArea">
 						<label>1차분류</label> 
 						<select class="category1">
@@ -177,7 +179,24 @@ textarea#gdsDes {
 						<textarea rows="5" cols="50" id="gdsDes" name="gdsDes"></textarea>
 					</div>
 					<div class="inputArea">
-						<button type="submit" id="register_Btn">등록</button>
+						<label for="gdsImg">이미지</label>
+						<input type="file" id="gdsImg" name="file"/>
+						<div class="select_img"><img src="" /></div>
+						<script>
+							$("#gdsImg").change(function(){
+								if(this.files && this.files[0]){
+									var reader = new FileReader;
+									reader.onload = function(data){
+										$(".select_img img").attr("src", data.target.result).width(500);
+									}
+									reader.readAsDataURL(this.files[0]);
+								}
+							});
+						</script>
+						<%=request.getRealPath("/") %>
+					</div>	
+					<div class="inputArea">
+						<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 					</div>
 				</form>
 			</div>

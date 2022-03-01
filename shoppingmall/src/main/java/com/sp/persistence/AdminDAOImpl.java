@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sp.domain.CategoryVO;
 import com.sp.domain.GoodsVO;
+import com.sp.domain.GoodsViewVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -24,7 +25,6 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void register(GoodsVO vo) throws Exception {
 		sql.insert("com.sp.mappers.adminMapper.register", vo);
-
 	}
 
 	@Override
@@ -33,8 +33,18 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public GoodsVO goodsView(int gdsNum) throws Exception {
+	public GoodsViewVO goodsView(int gdsNum) throws Exception {
 		return sql.selectOne("com.sp.mappers.adminMapper.goodsView", gdsNum);
+	}
+
+	@Override
+	public void goodsModify(GoodsVO vo) throws Exception {
+		sql.update("com.sp.mappers.adminMapper.goodsModify", vo);
+	}
+
+	@Override
+	public void goodsDelete(int gdsNum) throws Exception {
+		sql.delete("com.sp.mappers.adminMapper.goodsDelete", gdsNum);
 	}
 
 }

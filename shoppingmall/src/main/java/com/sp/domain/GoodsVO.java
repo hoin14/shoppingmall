@@ -3,7 +3,7 @@ package com.sp.domain;
 import java.util.Date;
 
 public class GoodsVO {
-	
+
 	private int gdsNum;
 	private String gdsName;
 	private String cateCode;
@@ -12,7 +12,8 @@ public class GoodsVO {
 	private String gdsDes;
 	private String gdsImg;
 	private Date gdsDate;
-	
+	private String gdsThumbImg;
+
 	public int getGdsNum() {
 		return gdsNum;
 	}
@@ -40,6 +41,12 @@ public class GoodsVO {
 	public int getGdsStock() {
 		return gdsStock;
 	}
+	public String getGdsThumbImg() {
+		return gdsThumbImg;
+	}
+	public void setGdsThumbImg(String gdsThumbImg) {
+		this.gdsThumbImg = gdsThumbImg;
+	}
 	public void setGdsStock(int gdsStock) {
 		this.gdsStock = gdsStock;
 	}
@@ -61,5 +68,5 @@ public class GoodsVO {
 	public void setGdsDate(Date gdsDate) {
 		this.gdsDate = gdsDate;
 	}
-	
+
 }

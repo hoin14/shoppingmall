@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.domain.CategoryVO;
 import com.sp.domain.GoodsVO;
+import com.sp.domain.GoodsViewVO;
 
 @Service
 public interface AdminService {
@@ -20,6 +21,12 @@ public interface AdminService {
 	public List<GoodsVO> goodslist() throws Exception;
 
 	// view
-	public GoodsVO goodView(int gdsNum) throws Exception;
+	public GoodsViewVO goodView(int gdsNum) throws Exception;
 
+	// update
+	public void goodsModify(GoodsVO vo) throws Exception;
+	
+	// delete
+	public void goodsDelete(int gdsNum) throws Exception;
+		
 }

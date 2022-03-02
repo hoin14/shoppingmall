@@ -18,7 +18,7 @@ public interface AdminService {
 	public void register(GoodsVO vo) throws Exception;
 
 	// list
-	public List<GoodsVO> goodslist() throws Exception;
+	public List<GoodsViewVO> goodslist() throws Exception;
 
 	// view
 	public GoodsViewVO goodView(int gdsNum) throws Exception;

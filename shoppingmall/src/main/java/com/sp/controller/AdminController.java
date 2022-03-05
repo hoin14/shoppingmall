@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import com.sp.domain.CategoryVO;
 import com.sp.domain.GoodsVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.service.AdminService;
+import com.sp.utils.UploadFileUtils;
 
 import net.sf.json.JSONArray;
 
@@ -38,7 +40,7 @@ public class AdminController {
 	@Inject
 	AdminService adminService;
 
-	// @Resource(name="uploadPath")
+	@Resource(name = "uploadPath")
 	private String uploadPath;
 
 	// 관리자화면
@@ -63,21 +65,24 @@ public class AdminController {
 			throws Exception {
 		logger.info("post goods register");
 
-		/*
-		 * String imgUploadPath = uploadPath + File.separator + "imgUpload";
-		 * String imgUploadPath = File.separator + "imgUpload"; String ymdPath =
-		 * UploadFileUtils.calcPath(imgUploadPath); String fileName = null;
-		 * 
-		 * if (file != null) { fileName =
-		 * UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(),
-		 * file.getBytes(), ymdPath); } else { fileName = uploadPath +
-		 * File.separator + "images" + File.separator + "none.png"; fileName =
-		 * File.separator + "images" + File.separator + "none.png"; }
-		 * 
-		 * vo.setGdsImg(File.separator + "imgUpload" + ymdPath + File.separator
-		 * + fileName); vo.setGdsThumbImg(File.separator + "imgUpload" + ymdPath
-		 * + File.separator + "s" + File.separator + "s_" + fileName);
-		 */
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+
+		if (file != null) {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath,
+					file.getOriginalFilename(), file.getBytes(), ymdPath);
+		} else {
+			fileName = uploadPath + File.separator + "images" + File.separator
+					+ "none.png";
+			fileName = File.separator + "images" + File.separator + "none.png";
+		}
+
+		vo.setGdsImg(File.separator + "imgUpload" + ymdPath + File.separator
+				+ fileName);
+		vo.setGdsThumbImg(File.separator + "imgUpload" + ymdPath
+				+ File.separator + "s" + File.separator + "s_" + fileName);
+
 		System.out.println(vo.getGdsName());
 		System.out.println(vo.getCateCode());
 		System.out.println(vo.getGdsPrice());

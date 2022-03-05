@@ -40,7 +40,7 @@ public class AdminController {
 	@Inject
 	AdminService adminService;
 
-	@Resource(name = "uploadPath")
+	/* @Resource(name = "uploadPath") */
 	private String uploadPath;
 
 	// 관리자화면
@@ -90,9 +90,9 @@ public class AdminController {
 		System.out.println(vo.getGdsDes());
 		System.out.println(vo.getGdsNum());
 
-		vo.setGdsImg("1");
-		vo.setGdsThumbImg("2");
-
+		/*
+		 * vo.setGdsImg("1"); vo.setGdsThumbImg("2");
+		 */
 		adminService.register(vo);
 		return "redirect:/admin/index";
 	}
@@ -223,5 +223,4 @@ public class AdminController {
 		return;
 
 	}
-
 }

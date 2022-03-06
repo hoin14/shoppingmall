@@ -19,12 +19,27 @@
 	
 	<!-- 상품 소감(댓글) 작성 -->
 	<insert id="registReply">
- 	insert into tbl_reply (gdsNum, userId, repNum, repCon) values (#{gdsNum}, #{userId}, tbl_reply_seq.nextval, #{repCon})
+ 		insert into tbl_reply (gdsNum, userId, repNum, repCon) values (#{gdsNum}, #{userId}, tbl_reply_seq.nextval, #{repCon})
 	</insert>
 	
 	<!-- 상품 소감(댓글) 리스트 -->
 	<select id="replyList" resultType="com.sp.domain.ReplyListVO">
  		select r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate, m.userName from tbl_reply r inner join tbl_member m on r.userId = m.userId where gdsNum = #{gdsNum}
 	</select>
+	
+	<!-- 상품 소감(댓글) 삭제 -->
+	<delete id="deleteReply">
+ 		delete tbl_reply where repNum = #{repNum} and userId = #{userId}
+	</delete>
+
+	<!-- 아이디 체크 -->
+	<select id="replyUserIdCheck" resultType="String">
+ 		select userId from tbl_reply where repNum = #{repNum}
+	</select>
+	
+	<!-- 상품 소감(댓글) 수정 -->
+	<update id="modifyReply">
+ 		update tbl_reply set repCon = #{repCon} where repNum = #{repNum} and userId = #{userId}
+	</update>
 
 </mapper>

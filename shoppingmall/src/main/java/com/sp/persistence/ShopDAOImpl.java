@@ -39,4 +39,21 @@ public class ShopDAOImpl implements ShopDAO {
 		return sql.selectList("com.sp.mappers.shopMapper.replyList", gdsNum);
 	}
 
+	@Override
+	public void deleteReply(ReplyVO reply) throws Exception {
+		sql.delete("com.sp.mappers.shopMapper.deleteReply", reply);
+		
+	}
+
+	@Override
+	public String idCheck(int repNum) throws Exception {
+		return sql.selectOne("com.sp.mappers.shopMapper.replyUserIdCheck", repNum);
+	}
+
+	@Override
+	public void modifyReply(ReplyVO reply) throws Exception {
+		sql.update("com.sp.mappers.shopMapper.modifyReply", reply);
+		
+	}
+
 }

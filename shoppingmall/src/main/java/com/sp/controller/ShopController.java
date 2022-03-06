@@ -56,19 +56,20 @@ public class ShopController {
 		 */
 	}
 
-/*	// 상품 댓글작성
-	@RequestMapping(value = "/view", method = RequestMethod.POST)
-	public String registReply(ReplyVO reply, HttpSession session)
-			throws Exception {
-		logger.info("get view");
+	/*
+	 * // 상품 댓글작성
+	 * 
+	 * @RequestMapping(value = "/view", method = RequestMethod.POST) public
+	 * String registReply(ReplyVO reply, HttpSession session) throws Exception {
+	 * logger.info("get view");
+	 * 
+	 * MemberVO member = (MemberVO) session.getAttribute("member");
+	 * reply.setUserId(member.getUserId());
+	 * 
+	 * service.registReply(reply); return "redirect:/shop/view?n=" +
+	 * reply.getGdsNum(); }
+	 */
 
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		reply.setUserId(member.getUserId());
-
-		service.registReply(reply);
-		return "redirect:/shop/view?n=" + reply.getGdsNum();
-	}*/
-	
 	// 상품 댓글작성
 	@ResponseBody
 	@RequestMapping(value = "/view/registReply", method = RequestMethod.POST)
@@ -81,7 +82,7 @@ public class ShopController {
 
 		service.registReply(reply);
 	}
-	
+
 	// 상품댓글 목록
 	@ResponseBody
 	@RequestMapping(value = "/view/replyList", method = RequestMethod.GET)
@@ -92,6 +93,50 @@ public class ShopController {
 		List<ReplyListVO> reply = service.replyList(gdsNum);
 
 		return reply;
+	}
+
+	// 상품댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/view/deleteReply", method = RequestMethod.POST)
+	public int getReplyList(ReplyVO reply, HttpSession session)
+			throws Exception {
+		logger.info("POST delete reply");
+
+		int result = 0;
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = service.idCheck(reply.getRepNum());
+
+		if (member.getUserId().equals(userId)) {
+
+			reply.setUserId(member.getUserId());
+			service.deleteReply(reply);
+
+			result = 1;
+		}
+		return result;
+	}
+
+	// 상품 소감(댓글) 수정
+	@ResponseBody
+	@RequestMapping(value = "/view/modifyReply", method = RequestMethod.POST)
+	public int modifyReply(ReplyVO reply, HttpSession session)
+			throws Exception {
+		logger.info("modify reply");
+
+		int result = 0;
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = service.idCheck(reply.getRepNum());
+
+		if (member.getUserId().equals(userId)) {
+
+			reply.setUserId(member.getUserId());
+			service.modifyReply(reply);
+			result = 1;
+		}
+
+		return result;
 	}
 
 }

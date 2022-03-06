@@ -12,6 +12,7 @@
 			<li><a href="/admin/index">관리자화면</a></li>
 		</c:if>
 		<li>${member.userName}님환영합니다.</li>
+		<li><a href="/shop/cartList">카트 리스트</a></li>
 		<li><a href="/member/signout">로그아웃</a></li>
 	</c:if>
 

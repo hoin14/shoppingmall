@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.jca.cci.CannotGetCciConnectionException;
 import org.springframework.stereotype.Repository;
 
+import com.sp.domain.CartListVO;
+import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
@@ -54,6 +56,16 @@ public class ShopDAOImpl implements ShopDAO {
 	public void modifyReply(ReplyVO reply) throws Exception {
 		sql.update("com.sp.mappers.shopMapper.modifyReply", reply);
 		
+	}
+
+	@Override
+	public void addCart(CartVO cart) throws Exception {
+		sql.insert("com.sp.mappers.shopMapper.addCart", cart);
+	}
+
+	@Override
+	public List<CartListVO> cartList(String userId) throws Exception {
+		return sql.selectList("com.sp.mappers.shopMapper.cartList", userId);
 	}
 
 }

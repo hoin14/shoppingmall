@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Repository;
 
+import com.sp.domain.CartListVO;
+import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
@@ -50,6 +52,16 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public void modifyReply(ReplyVO reply) throws Exception {
 		dao.modifyReply(reply);
+	}
+
+	@Override
+	public void addCart(CartVO cart) throws Exception {
+		dao.addCart(cart);
+	}
+
+	@Override
+	public List<CartListVO> cartList(String userId) throws Exception {
+		return dao.cartList(userId);
 	}
 
 }

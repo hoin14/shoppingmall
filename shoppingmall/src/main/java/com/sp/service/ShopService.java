@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.sp.domain.CartListVO;
 import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
+import com.sp.domain.OrderDetailVO;
+import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
 
@@ -39,5 +41,17 @@ public interface ShopService {
 
 	// 카트 리스트
 	public List<CartListVO> cartList(String userId) throws Exception;
+
+	// 카드 삭제
+	public void deleteCart(CartVO cart) throws Exception;
+
+	// 카드 삭제
+	public void orderInfo(OrderVO order) throws Exception;
+
+	// 카드 삭제
+	public void orderInfo_Details(OrderDetailVO orderDetail) throws Exception;
+
+	// 카드 비우기
+	public void cartAllDelete(String userId) throws Exception;
 
 }

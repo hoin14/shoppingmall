@@ -1,5 +1,7 @@
 package com.sp.controller;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +20,8 @@ import com.sp.domain.CartListVO;
 import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.MemberVO;
+import com.sp.domain.OrderDetailVO;
+import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
 import com.sp.service.ShopService;
@@ -166,11 +170,71 @@ public class ShopController {
 
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String userId = member.getUserId();
-		
+
 		List<CartListVO> cartList = service.cartList(userId);
 
 		model.addAttribute("cartList", cartList);
 
 	}
 
+	// 카트 삭제
+	@ResponseBody
+	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+	public int deleteCart(HttpSession session,
+			@RequestParam(value = "chbox[]") List<String> chArr, CartVO cart)
+			throws Exception {
+		logger.info("delete cart");
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		int result = 0;
+		int cartNum = 0;
+
+		if (member != null) {
+			cart.setUserId(userId);
+
+			for (String i : chArr) {
+				cartNum = Integer.parseInt(i);
+				cart.setCartNum(cartNum);
+				service.deleteCart(cart);
+			}
+			result = 1;
+		}
+		return result;
+	}
+
+	// 주문
+	@RequestMapping(value = "/cartList", method = RequestMethod.POST)
+	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
+	 logger.info("order");
+	 
+	 MemberVO member = (MemberVO)session.getAttribute("member");  
+	 String userId = member.getUserId();
+	 
+	 Calendar cal = Calendar.getInstance();
+	 int year = cal.get(Calendar.YEAR);
+	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+	 String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+	 String subNum = "";
+	 
+	 for(int i = 1; i <= 6; i ++) {
+	  subNum += (int)(Math.random() * 10);
+	 }
+	 
+	 String orderId = ymd + "_" + subNum;
+	 
+	 order.setOrderId(orderId);
+	 order.setUserId(userId);
+	  
+	 service.orderInfo(order);
+	 
+	 orderDetail.setOrderId(orderId);   
+	 service.orderInfo_Details(orderDetail);
+	 
+	 service.cartAllDelete(userId);
+	 
+	 return "redirect:/shop/orderList";  
+	}
+	
 }

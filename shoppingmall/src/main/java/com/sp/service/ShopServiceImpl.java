@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.sp.domain.CartListVO;
 import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
+import com.sp.domain.OrderDetailVO;
+import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
 import com.sp.persistence.ShopDAO;
@@ -62,6 +64,26 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<CartListVO> cartList(String userId) throws Exception {
 		return dao.cartList(userId);
+	}
+
+	@Override
+	public void deleteCart(CartVO cart) throws Exception {
+		dao.deleteCart(cart);
+	}
+
+	@Override
+	public void orderInfo(OrderVO order) throws Exception {
+		dao.orderInfo(order);
+	}
+
+	@Override
+	public void orderInfo_Details(OrderDetailVO orderDetail) throws Exception {
+		dao.orderInfo_Details(orderDetail);
+	}
+
+	@Override
+	public void cartAllDelete(String userId) throws Exception {
+		dao.cartAllDelete(userId);
 	}
 
 }

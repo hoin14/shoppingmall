@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.sp.domain.CartListVO;
 import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
+import com.sp.domain.OrderDetailVO;
+import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
 
@@ -44,7 +46,7 @@ public class ShopDAOImpl implements ShopDAO {
 	@Override
 	public void deleteReply(ReplyVO reply) throws Exception {
 		sql.delete("com.sp.mappers.shopMapper.deleteReply", reply);
-		
+
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class ShopDAOImpl implements ShopDAO {
 	@Override
 	public void modifyReply(ReplyVO reply) throws Exception {
 		sql.update("com.sp.mappers.shopMapper.modifyReply", reply);
-		
+
 	}
 
 	@Override
@@ -67,5 +69,26 @@ public class ShopDAOImpl implements ShopDAO {
 	public List<CartListVO> cartList(String userId) throws Exception {
 		return sql.selectList("com.sp.mappers.shopMapper.cartList", userId);
 	}
+
+	@Override
+	public void deleteCart(CartVO cart) throws Exception {
+		sql.delete("com.sp.mappers.shopMapper.deleteCart", cart);
+	}
+
+	@Override
+	public void orderInfo(OrderVO order) throws Exception {
+		sql.insert("com.sp.mappers.shopMapper.orderInfo", order);
+	}
+
+	@Override
+	public void orderInfo_Details(OrderDetailVO orderDetail) throws Exception {
+		sql.insert("com.sp.mappers.shopMapper.orderInfo_Details", orderDetail);
+	}
+
+	@Override
+	public void cartAllDelete(String userId) throws Exception {
+		sql.delete("com.sp.mappers.shopMapper.cartAllDelete", userId);
+	}
+
 
 }

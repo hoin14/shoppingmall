@@ -360,7 +360,7 @@ section#content div.gdsInfo .delete button { font-size:15px; padding:5px 10px; b
   					</div>
   
   					<div class="inputArea">
-   						<label for="orderPhon">수령인 연락처</label>
+   						<label for="orderPhon">수령인 연락처1</label>
    						<input type="text" name="orderPhon" id="orderPhon" required="required" />
   					</div>
   

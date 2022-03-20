@@ -146,6 +146,8 @@
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>12.1.0.2</version>
+			<scope>system</scope>
+			<systemPath>C:\project\repository\com\oracle\ojdbc6\12.1.0.2/ojdbc6-12.1.0.2.jar</systemPath>
 		</dependency>
 
 		<!-- spring-jdbc -->

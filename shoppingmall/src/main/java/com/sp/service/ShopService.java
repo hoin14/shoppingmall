@@ -8,6 +8,7 @@ import com.sp.domain.CartListVO;
 import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.OrderDetailVO;
+import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
@@ -54,4 +55,10 @@ public interface ShopService {
 	// 카드 비우기
 	public void cartAllDelete(String userId) throws Exception;
 
+	// 주문 목록
+	public List<OrderVO> orderList(OrderVO order) throws Exception;
+	
+	// 특정 주문 목록
+	public List<OrderListVO> orderView(OrderVO order) throws Exception;
+		
 }

@@ -49,10 +49,19 @@
 
 	<!-- Interceptor -->
 	<beans:bean id="AdminInterceptor" class="com.sp.interceptor.AdminInterceptor" />
+	<beans:bean id="ShopInterceptor" class="com.sp.interceptor.ShopInterceptor" />
+	
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin/**" />
 			<beans:ref bean="AdminInterceptor" />
+		</interceptor>
+	</interceptors>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/shop/**" />
+			<beans:ref bean="ShopInterceptor" />
 		</interceptor>
 	</interceptors>
 

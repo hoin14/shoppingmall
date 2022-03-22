@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sp.domain.CategoryVO;
 import com.sp.domain.GoodsVO;
 import com.sp.domain.GoodsViewVO;
+import com.sp.domain.MemberVO;
+import com.sp.domain.OrderListVO;
+import com.sp.domain.OrderVO;
 import com.sp.service.AdminService;
 import com.sp.utils.UploadFileUtils;
 
@@ -223,4 +227,37 @@ public class AdminController {
 		return;
 
 	}
+
+	// 주문 목록
+	@RequestMapping(value = "/shop/orderList", method = RequestMethod.GET)
+	public void getOrderList(Model model) throws Exception {
+		logger.info("get order list");
+
+		List<OrderVO> orderList = adminService.orderList();
+
+		model.addAttribute("orderList", orderList);
+	}
+
+	// 주문 상세 목록
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.GET)
+	public void getOrderList(@RequestParam("n") String orderId, OrderVO order,
+			Model model) throws Exception {
+		logger.info("get order view");
+
+		order.setOrderId(orderId);
+		List<OrderListVO> orderView = adminService.orderView(order);
+
+		model.addAttribute("orderView", orderView);
+	}
+
+	// 주문 상세 목록 - 상태 변경
+	@RequestMapping(value = "/shop/orderView", method = RequestMethod.POST)
+	public String delivery(OrderVO order) throws Exception {
+		logger.info("post order view");
+
+		adminService.delivery(order);
+
+		return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
+	}
+
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.sp.domain.CategoryVO;
 import com.sp.domain.GoodsVO;
 import com.sp.domain.GoodsViewVO;
+import com.sp.domain.OrderListVO;
+import com.sp.domain.OrderVO;
 
 @Service
 public interface AdminDAO {
@@ -28,5 +30,15 @@ public interface AdminDAO {
 	
 	// delete
 	public void goodsDelete(int gdsNum) throws Exception;
+	
+	// 주문 목록
+	public List<OrderVO> orderList() throws Exception;
+	
+	// 특정 주문 목록
+	public List<OrderListVO> orderView(OrderVO order) throws Exception;
+	
+	// 배송 상태
+	public void delivery(OrderVO order) throws Exception;
+
 		
 }

@@ -21,6 +21,7 @@ import com.sp.domain.CartVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.MemberVO;
 import com.sp.domain.OrderDetailVO;
+import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
 import com.sp.domain.ReplyVO;
@@ -206,35 +207,71 @@ public class ShopController {
 
 	// 주문
 	@RequestMapping(value = "/cartList", method = RequestMethod.POST)
-	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
-	 logger.info("order");
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");  
-	 String userId = member.getUserId();
-	 
-	 Calendar cal = Calendar.getInstance();
-	 int year = cal.get(Calendar.YEAR);
-	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-	 String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-	 String subNum = "";
-	 
-	 for(int i = 1; i <= 6; i ++) {
-	  subNum += (int)(Math.random() * 10);
-	 }
-	 
-	 String orderId = ymd + "_" + subNum;
-	 
-	 order.setOrderId(orderId);
-	 order.setUserId(userId);
-	  
-	 service.orderInfo(order);
-	 
-	 orderDetail.setOrderId(orderId);   
-	 service.orderInfo_Details(orderDetail);
-	 
-	 service.cartAllDelete(userId);
-	 
-	 return "redirect:/shop/orderList";  
+	public String order(HttpSession session, OrderVO order,
+			OrderDetailVO orderDetail) throws Exception {
+		logger.info("order");
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year
+				+ new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym
+				+ new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+
+		for (int i = 1; i <= 6; i++) {
+			subNum += (int) (Math.random() * 10);
+		}
+
+		String orderId = ymd + "_" + subNum;
+
+		order.setOrderId(orderId);
+		order.setUserId(userId);
+
+		service.orderInfo(order);
+
+		orderDetail.setOrderId(orderId);
+		service.orderInfo_Details(orderDetail);
+
+		service.cartAllDelete(userId);
+
+		return "redirect:/shop/orderList";
 	}
-	
+
+	// 주문 목록
+	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
+	public void getOrderList(HttpSession session, OrderVO order, Model model)
+			throws Exception {
+		logger.info("get order list");
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		order.setUserId(userId);
+		List<OrderVO> orderList = service.orderList(order);
+
+		model.addAttribute("orderList", orderList);
+	}
+
+	// 주문 상세 목록
+	@RequestMapping(value = "/orderView", method = RequestMethod.GET)
+	public void getOrderList(HttpSession session,
+			@RequestParam("n") String orderId, OrderVO order, Model model)
+			throws Exception {
+		logger.info("get order view");
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		order.setUserId(userId);
+		order.setOrderId(orderId);
+
+		List<OrderListVO> orderView = service.orderView(order);
+
+		model.addAttribute("orderView", orderView);
+	}
+
 }

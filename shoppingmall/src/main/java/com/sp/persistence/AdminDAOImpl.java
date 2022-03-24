@@ -12,6 +12,7 @@ import com.sp.domain.GoodsVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
+import com.sp.domain.ReplyListVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -62,6 +63,21 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void delivery(OrderVO order) throws Exception {
 		sql.update("com.sp.mappers.adminMapper.delivery", order);
+	}
+
+	@Override
+	public void changeStock(GoodsVO goods) throws Exception {
+		sql.update("com.sp.mappers.adminMapper.changeStock", goods);
+	}
+
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return sql.selectList("com.sp.mappers.adminMapper.allReply");
+	}
+
+	@Override
+	public void deleteReply(int repNum) throws Exception {
+		sql.delete("com.sp.mappers.adminMapper.deleteReply", repNum);
 	}
 
 }

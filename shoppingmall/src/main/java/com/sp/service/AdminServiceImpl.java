@@ -11,6 +11,7 @@ import com.sp.domain.GoodsVO;
 import com.sp.domain.GoodsViewVO;
 import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
+import com.sp.domain.ReplyListVO;
 import com.sp.persistence.AdminDAO;
 
 @Repository
@@ -63,6 +64,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void delivery(OrderVO order) throws Exception {
 		dao.delivery(order);
+	}
+
+	@Override
+	public void changeStock(GoodsVO goods) throws Exception {
+		dao.changeStock(goods);
+	}
+
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return dao.allReply();
+	}
+
+	@Override
+	public void deleteReply(int repNum) throws Exception {
+		dao.deleteReply(repNum);
 	}
 
 }

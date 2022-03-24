@@ -8,11 +8,9 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sp.domain.CategoryVO;
 import com.sp.domain.GoodsVO;
 import com.sp.domain.GoodsViewVO;
-import com.sp.domain.MemberVO;
 import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
+import com.sp.domain.ReplyListVO;
 import com.sp.service.AdminService;
 import com.sp.utils.UploadFileUtils;
 
@@ -257,7 +255,39 @@ public class AdminController {
 
 		adminService.delivery(order);
 
+		if (order.getDelivery().equals("배송 중")) {
+			List<OrderListVO> orderView = adminService.orderView(order);
+			GoodsVO goods = new GoodsVO();
+
+			for (OrderListVO i : orderView) {
+				goods.setGdsNum(i.getGdsNum());
+				goods.setGdsStock(i.getCartStock());
+				adminService.changeStock(goods);
+			}
+		}
+
 		return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
 	}
+	
+	// 모든 댓글
+	@RequestMapping(value = "/shop/allReply", method = RequestMethod.GET)
+	public void getAllReply(Model model) throws Exception {
+		logger.info("get all reply");
 
+		List<ReplyListVO> reply = adminService.allReply();
+
+		model.addAttribute("reply", reply);
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value = "/shop/allReply", method = RequestMethod.POST)
+	public String postReplyDelete(@RequestParam("repNum") int repNum)
+			throws Exception {
+		logger.info("post reply delete");
+
+		adminService.deleteReply(repNum);
+
+		return "redirect:/admin/shop/allReply";
+	}
+	
 }

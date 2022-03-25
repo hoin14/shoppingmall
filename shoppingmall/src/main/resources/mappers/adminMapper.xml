@@ -28,7 +28,7 @@
    
 	<!-- 상품 조회 + 카테고리 조인-->
 	<select id="goodsView" resultType="com.sp.domain.GoodsViewVO">
- 		select g.gdsNum, g.gdsName, c.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate
+ 		select g.gdsNum, g.gdsName, c.cateCode, c.cateCodeRef, c.cateName, gdsPrice, gdsStock, gdsDes, gdsImg, gdsDate, gdsThumbImg
         from tbl_goods g inner join goods_category c on g.cateCode = c.cateCode
         where g.gdsNum = #{gdsNum}
 	</select>
@@ -41,10 +41,17 @@
          cateCode = #{cateCode},
          gdsPrice = #{gdsPrice},
          gdsStock = #{gdsStock},
-         gdsDes = #{gdsDes}
+         gdsDes = #{gdsDes},
+         gdsImg = #{gdsImg},
+         gdsThumbImg = #{gdsThumbImg}
      	where gdsNum = ${gdsNum}
 	</update>
-
+	
+	<!-- 상품 삭제전 체크 -->
+	<select id="replyCount" resultType="int">
+ 		select count(*) from tbl_reply where gdsNum = #{gdsNum}
+	</select>
+	
 	<!-- 상품 삭제 -->
 	<delete id="goodsDelete">
  		delete tbl_goods where gdsNum = #{gdsNum}

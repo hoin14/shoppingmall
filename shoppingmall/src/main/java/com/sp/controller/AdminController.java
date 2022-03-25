@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +43,7 @@ public class AdminController {
 	@Inject
 	AdminService adminService;
 
-	/* @Resource(name = "uploadPath") */
+	@Resource(name = "uploadPath")
 	private String uploadPath;
 
 	// 관리자화면
@@ -137,32 +138,53 @@ public class AdminController {
 		model.addAttribute("category", JSONArray.fromObject(category));
 	}
 
-	// 상품 등록
+	// 상품 수정
 	@RequestMapping(value = "/goods/modify", method = RequestMethod.POST)
-	public String postGoodsModify(@RequestParam("n") int gdsNum, GoodsVO vo)
-			throws Exception {
+	public String postGoodsModify(@RequestParam("n") int gdsNum, GoodsVO vo, MultipartFile file,
+			HttpServletRequest req) throws Exception {
 		logger.info("post goods modify");
 
+		// 새로운 파일이 등록되었는지 확인
+		if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			// 기존 파일을 삭제
+			new File(uploadPath + req.getParameter("gdsImg")).delete();
+			new File(uploadPath + req.getParameter("gdsThumbImg")).delete();
+
+			// 새로 첨부한 파일을 등록
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String fileName = UploadFileUtils.fileUpload(imgUploadPath,file.getOriginalFilename(), file.getBytes(), ymdPath);
+
+			vo.setGdsImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			vo.setGdsThumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		} else {
+			// 새로운 파일이 등록되지 않았다면
+			// 기존 이미지를 그대로 사용
+			vo.setGdsImg(req.getParameter("gdsImg"));
+			vo.setGdsThumbImg(req.getParameter("gdsThumbImg"));
+		}
+		
 		vo.setGdsNum(gdsNum);
-
-		System.out.println(vo.getGdsName());
-		System.out.println(vo.getCateCode());
-		System.out.println(vo.getGdsPrice());
-		System.out.println(vo.getGdsStock());
-		System.out.println(vo.getGdsDes());
-		System.out.println(vo.getGdsNum());
-
 		adminService.goodsModify(vo);
+
 		return "redirect:/admin/index";
 	}
 
 	// 상품 삭제
 	@RequestMapping(value = "/goods/delete", method = RequestMethod.POST)
-	public String postGoodsDelete(@RequestParam("n") int gdsNum)
-			throws Exception {
+	public String postGoodsDelete(@RequestParam("n") int gdsNum, Model model)
+			throws Exception { 
 		logger.info("post goods delete");
-
-		adminService.goodsDelete(gdsNum);
+		
+		int result = 0;
+		
+		result = adminService.replyCount(gdsNum);
+		
+		if(result == 0) {
+			adminService.goodsDelete(gdsNum);
+		}else {
+			model.addAttribute("msg", "해당 삼품에 댓글을 먼저 삭제해주세요");
+		}
 
 		return "redirect:/admin/index";
 	}
@@ -268,7 +290,7 @@ public class AdminController {
 
 		return "redirect:/admin/shop/orderView?n=" + order.getOrderId();
 	}
-	
+
 	// 모든 댓글
 	@RequestMapping(value = "/shop/allReply", method = RequestMethod.GET)
 	public void getAllReply(Model model) throws Exception {
@@ -278,7 +300,7 @@ public class AdminController {
 
 		model.addAttribute("reply", reply);
 	}
-	
+
 	// 댓글 삭제
 	@RequestMapping(value = "/shop/allReply", method = RequestMethod.POST)
 	public String postReplyDelete(@RequestParam("repNum") int repNum)
@@ -289,5 +311,5 @@ public class AdminController {
 
 		return "redirect:/admin/shop/allReply";
 	}
-	
+
 }

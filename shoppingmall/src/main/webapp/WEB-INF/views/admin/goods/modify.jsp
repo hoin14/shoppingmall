@@ -147,8 +147,7 @@ textarea#gdsDes {
 			<div id="container_box">
 				<h2>상품수정</h2>
 
-				<!-- <form role="form" method="post" autocomplete="off" enctype="multipart/form-data"> -->
-				<form role="form" method="post" autocomplete="off" >
+				<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
 					<input type="hidden" name="n" value="${goods.gdsNum}"/>
 					
 					<div class="inputArea">
@@ -176,10 +175,14 @@ textarea#gdsDes {
 						<label for="gdsDes">상품소개</label> 
 						<textarea rows="5" cols="50" id="gdsDes" name="gdsDes">${goods.gdsDes}</textarea>
 					</div>
-	<%-- 				<div class="inputArea">
+					<div class="inputArea">
 						<label for="gdsImg">이미지</label>
 						<input type="file" id="gdsImg" name="file"/>
-						<div class="select_img"><img src="" /></div>
+						<div class="select_img">
+							<img src="${goods.gdsImg}" />
+							<input type="hidden" name="gdsImg" value="${goods.gdsImg }"/>
+							<input type="hidden" name="gdsThumbImg" value="${goods.gdsThumbImg }"/>
+						</div>
 						<script>
 							$("#gdsImg").change(function(){
 								if(this.files && this.files[0]){
@@ -192,7 +195,7 @@ textarea#gdsDes {
 							});
 						</script>
 						<%=request.getRealPath("/") %>
-					</div>	 --%>
+					</div>	
 					<div class="inputArea">
 						<button type="submit" id="update_Btn" class="btn btn-primary">완료</button>
 						<button type="button" id="back_Btn" class="btn btn-warning">취소</button>

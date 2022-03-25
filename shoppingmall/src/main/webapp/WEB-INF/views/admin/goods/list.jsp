@@ -149,11 +149,11 @@ footer#footer ul li {
 					<tbody>
 						<c:forEach items="${list}" var="list">
 							<tr>
-								<td>${list.gdsThumbImg}</td>
+								<td>${list.gdsNum}</td>
 								<td>
 									<a href="/admin/goods/view?n=${list.gdsNum}">${list.gdsName}</a>
 								</td>
-								<td>${list.cateName}</td>
+								<td>${list.cateCode}</td>
 								<td>
 									<fmt:formatNumber value="${list.gdsPrice}" pattern="###,###,###"/></td>
 								<td>${list.gdsStock}</td>

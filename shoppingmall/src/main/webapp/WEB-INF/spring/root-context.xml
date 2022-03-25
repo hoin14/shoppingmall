@@ -33,5 +33,10 @@
 
 	<!-- Package -->
 	<context:component-scan base-package="com.sp.*"></context:component-scan>
-
+	
+	<!-- 업로드 패스 설정 -->
+	<bean id="uploadPath" class="java.lang.String"  >
+		<constructor-arg value="C:\workspace\ShoppingMall\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\shoppingmall\resources" />
+	</bean>
+	
 </beans>

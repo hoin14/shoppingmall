@@ -10,6 +10,7 @@ import com.sp.domain.GoodsViewVO;
 import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
+import com.sp.domain.ReplyVO;
 
 @Service
 public interface AdminService {
@@ -28,7 +29,10 @@ public interface AdminService {
 
 	// update
 	public void goodsModify(GoodsVO vo) throws Exception;
-
+	
+	// replyCount
+	public int replyCount(int gdsNum) throws Exception;
+	
 	// delete
 	public void goodsDelete(int gdsNum) throws Exception;
 

@@ -12,6 +12,7 @@ import com.sp.domain.GoodsViewVO;
 import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
+import com.sp.domain.ReplyVO;
 import com.sp.persistence.AdminDAO;
 
 @Repository
@@ -45,7 +46,13 @@ public class AdminServiceImpl implements AdminService {
 	public void goodsModify(GoodsVO vo) throws Exception {
 		dao.goodsModify(vo);
 	}
+	
 
+	@Override
+	public int replyCount(int gdsNum) throws Exception {
+		return dao.replyCount(gdsNum);
+	}
+	
 	@Override
 	public void goodsDelete(int gdsNum) throws Exception {
 		dao.goodsDelete(gdsNum);

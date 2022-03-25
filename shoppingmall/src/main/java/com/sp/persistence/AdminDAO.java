@@ -10,6 +10,7 @@ import com.sp.domain.GoodsViewVO;
 import com.sp.domain.OrderListVO;
 import com.sp.domain.OrderVO;
 import com.sp.domain.ReplyListVO;
+import com.sp.domain.ReplyVO;
 
 @Service
 public interface AdminDAO {
@@ -28,13 +29,16 @@ public interface AdminDAO {
 
 	// update
 	public void goodsModify(GoodsVO vo) throws Exception;
-
+	
+	// replyCount
+	public int replyCount(int gdsNum) throws Exception;
+	
 	// delete
 	public void goodsDelete(int gdsNum) throws Exception;
 
 	// 주문 목록
 	public List<OrderVO> orderList() throws Exception;
-
+	
 	// 특정 주문 목록
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;
 

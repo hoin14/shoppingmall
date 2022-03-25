@@ -483,38 +483,27 @@ section#content div.gdsInfo .delete button {
 											data-cartNum="${cartList.cartNum} ">삭제</button>
 
 										<script>
-											$(".delete_${cartList.cartNum}_btn")
-													.click(
-															function() {
-																var confirm_val = confirm("정말 삭제하시겠습니까?");
-
-																if (confirm_val) {
-																	var checkArr = new Array();
-
-																	checkArr
-																			.push($(
-																					this)
-																					.attr(
-																							"data-cartNum"));
-
-																	$
-																			.ajax({
-																				url : "/shop/deleteCart",
-																				type : "post",
-																				data : {
-																					chbox : checkArr
-																				},
-																				success : function(
-																						result) {
-																					if (result == 1) {
-																						location.href = "/shop/cartList";
-																					} else {
-																						alert("삭제 실패");
-																					}
+											$(".delete_${cartList.cartNum}_btn").click(function() {
+													var confirm_val = confirm("정말 삭제하시겠습니까?");
+														if (confirm_val) {
+															var checkArr = new Array();
+																checkArr.push($(this).attr("data-cartNum"));
+																	$.ajax({
+																			url : "/shop/deleteCart",
+																			type : "post",
+																			data : {
+																			chbox : checkArr
+																			},
+																			success : function(result) {
+																			if (result == 1) {
+																				location.href = "/shop/cartList";
+																			} else {
+																				alert("삭제 실패");
 																				}
-																			});
+																			}
+																		});
 																}
-															});
+											});
 										</script>
 									</div>
 								</div>

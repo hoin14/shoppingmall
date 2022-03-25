@@ -28,7 +28,7 @@
 		/> -->
 
 	<!-- 업로드 패스 설정 -->
-	<beans:bean id="uploadPath" class="java.lang.String" >
+	<beans:bean class="java.lang.String" id="uploadPath" >
 		<beans:constructor-arg value="C:\workspace\ShoppingMall\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\shoppingmall\resources" />
 	</beans:bean>
 

@@ -9,6 +9,12 @@
 
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<!-- jQuery -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css">
 <link rel="stylesheet"
@@ -346,12 +352,15 @@ section#content div.gdsInfo .delete button {
 	background: #fff;
 	margin-right: 20px;
 }
+
 #sample2_postcode {
 	width: 80px;
 }
-#sample2_address, #sample2_detailAddress{
+
+#sample2_address, #sample2_detailAddress {
 	width: 250px;
 }
+
 .orderBtn {
 	float: right;
 	width: 200px;
@@ -359,6 +368,79 @@ section#content div.gdsInfo .delete button {
 }
 </style>
 
+<script>
+function validate() {
+		var orderName = document.getElementById("orderRec").value;
+		var orderPhone = document.getElementById("orderPhon").value;
+		var orderEmail = document.getElementById("orderEmail").value;
+		var param = orderName +"/" + orderPhone +"/" +orderEmail
+		console.log(orderName);
+		return false;
+		$("#payMent").click(function(){
+			payment(param);		
+		});
+		var postCode = document.getElementById("sample2_postcode").value;
+		/* var postCode = $("sample2_postcode").val(); */
+		return false;
+		var addr1 = document.getElementById("sample2_address");
+		var addr2 = document.getElementById("sample2_detailAddress");
+		var addr3 = document.getElementById("sample2_extraAddress");
+		if (postCode.value == "") {
+			alert("우편번호를 입력해주세요.");
+			sample2_postcode.focus();
+			return false;
+		}
+		if (addr1.value == "") {
+			alert("주소를 입력해주세요.");
+			sample2_address.focus();
+			return false;
+		}
+		if (addr2.value == "") {
+			alert("상세주소를 입력해주세요.");
+			sample2_detailAddress.focus();
+			return false;
+		}
+		if (addr3.value == "") {
+			alert("참고사항을 입력해주세요.");
+			sample2_extraAddress.focus();
+			return false;
+		}
+		
+		
+}
+
+$(document).ready(function(){
+	var orderName = document.getElementById("orderRec").value;
+	var orderPhone = document.getElementById("orderPhon").value;
+	var orderEmail = document.getElementById("orderEmail").value;
+	var param = orderName +"/" + orderPhone +"/" +orderEmail
+	console.log(orderName);
+	$("#payMent").click(function(){
+		payment(param);		
+	});
+})
+
+function payment(data){
+	IMP.init('imp80338788');
+	IMP.request_pay({
+		pg: "kkaopay.TC0ONETIME",
+		pay_method: "car",
+		merchant_uid: "iamport_test_id1",
+		name: "무기",
+		amount: 35000,
+		buyer_email: "zazahoin@gmail.com",
+		buyer_name: "AShae",
+		buyer_tel: "01036332322"
+	
+	}, function(rsp){
+		if(rsp.success){
+			alert("완료 -> imp_uid:"+rsp.imp_uid+" / merchant_uid(orderKey):" +rsp.merchat_uid);
+		} else{
+			alert("실패: 코드("+rsp.error_code+") / 메세지("+rsp.error_msg+")");
+		}
+	});
+}
+</script>
 </head>
 <body>
 	<div id="root">
@@ -483,27 +565,35 @@ section#content div.gdsInfo .delete button {
 											data-cartNum="${cartList.cartNum} ">삭제</button>
 
 										<script>
-											$(".delete_${cartList.cartNum}_btn").click(function() {
-													var confirm_val = confirm("정말 삭제하시겠습니까?");
-														if (confirm_val) {
-															var checkArr = new Array();
-																checkArr.push($(this).attr("data-cartNum"));
-																	$.ajax({
-																			url : "/shop/deleteCart",
-																			type : "post",
-																			data : {
-																			chbox : checkArr
-																			},
-																			success : function(result) {
-																			if (result == 1) {
-																				location.href = "/shop/cartList";
-																			} else {
-																				alert("삭제 실패");
+											$(".delete_${cartList.cartNum}_btn")
+													.click(
+															function() {
+																var confirm_val = confirm("정말 삭제하시겠습니까?");
+																if (confirm_val) {
+																	var checkArr = new Array();
+																	checkArr
+																			.push($(
+																					this)
+																					.attr(
+																							"data-cartNum"));
+																	$
+																			.ajax({
+																				url : "/shop/deleteCart",
+																				type : "post",
+																				data : {
+																					chbox : checkArr
+																				},
+																				success : function(
+																						result) {
+																					if (result == 1) {
+																						location.href = "/shop/cartList";
+																					} else {
+																						alert("삭제 실패");
+																					}
 																				}
-																			}
-																		});
+																			});
 																}
-											});
+															});
 										</script>
 									</div>
 								</div>
@@ -531,18 +621,23 @@ section#content div.gdsInfo .delete button {
 					</div>
 
 					<div class="orderInfo">
-						<form role="form" method="post" autocomplete="off">
+						<form role="form" onsubmit="return validate();" method="post"
+							autocomplete="off">
 
 							<input type="hidden" name="amount" value="${sum}" />
 
 							<div class="inputArea">
-								<label for="">수령인</label> <input type="text" name="orderRec"
-									id="orderRec" required="required" />
+								<label for="">수령인</label> <input type="text" id="orderRec" name="orderRec"
+									 required="required" />
 							</div>
 
 							<div class="inputArea">
 								<label for="orderPhon">수령인 연락처1</label> <input type="text"
 									name="orderPhon" id="orderPhon" required="required" />
+							</div>
+							<div class="inputArea">
+								<label for="orderEmail">수령인 이메일</label> <input type="text"
+									name="orderEmail" id="orderEmail" required="required" />
 							</div>
 							<!-- 
 							<div class="inputArea">
@@ -560,20 +655,21 @@ section#content div.gdsInfo .delete button {
 									name="userAddr3" id="userAddr3" required="required" />
 							</div> -->
 
-
 							<div class="inputArea">
 								<p>
-									<input type="text" name="userAddr1" id="sample2_postcode" placeholder="우편번호">
-									<input type="button" onclick="sample2_execDaumPostcode()"value="우편번호 찾기"><br> 
+									<input type="text" name="userAddr1" id="sample2_postcode"
+										placeholder="우편번호"> <input type="button"
+										onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
 								</p>
 								<p>
-									<input type="text" name="userAddr2" id="sample2_address" placeholder="주소">
-									<input type="text" name="userAddr3" id="sample2_detailAddress" placeholder="상세주소">
+									<input type="text" name="userAddr2" id="sample2_address"
+										placeholder="주소"> <input type="text" name="userAddr3"
+										id="sample2_detailAddress" placeholder="상세주소">
 								</p>
 								<p>
-									<input type="text"  id="sample2_extraAddress" placeholder="참고항목">
+									<input type="text" id="sample2_extraAddress" placeholder="참고항목">
 								</p>
-								
+
 								<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 								<div id="layer"
 									style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
@@ -693,18 +789,19 @@ section#content div.gdsInfo .delete button {
 												+ 'px';
 									}
 								</script>
-							
-									<button type="submit" class="order_btn">주문</button>
-									<button type="button" class="cancel_btn">취소</button>
-									<script>
-										$(".cancel_btn").click(function() {
-											$(".orderInfo").slideUp();
-											$(".orderOpen_bnt").slideDown();
-										});
-									</script>
-								
+
+								<button type="submit" class="order_btn">주문</button>
+								<button type="button" class="cancel_btn">취소</button>
+								<button type="button" id="payMent" class="pay_btn">결제</button>
+								<script>
+									$(".cancel_btn").click(function() {
+										$(".orderInfo").slideUp();
+										$(".orderOpen_bnt").slideDown();
+									});
+								</script>
+
 							</div>
-							
+
 
 						</form>
 					</div>

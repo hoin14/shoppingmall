@@ -1,0 +1,346 @@
+@charset "EUC-KR";
+
+section#container::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+aside {
+	float: left;
+	width: 200px;
+}
+
+div#container_box {
+	float: right;
+	width: calc(100% - 200px - 20px);
+}
+
+aside h3 {
+	text-align: center;
+	font-size: 22px;
+	margin-bottom: 20px;
+}
+
+aside ul li {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+aside ul li a {
+	display: block;
+	width: 100%;
+	padding: 10px 0;
+}
+
+aside ul li a:hover {
+	background: #eee;
+	text-decoration: none;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: '¸¼Àº °íµñ', verdana;
+}
+
+a {
+	color: #05f;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+ul, lo, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+div#root {
+	width: 900px;
+	margin: 0 auto;
+}
+
+section#content {
+	float: right;
+	width: 700px;
+}
+
+aside#aside {
+	float: left;
+	width: 180px;
+}
+
+section#container::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+footer#footer {
+	background: #eee;
+	padding: 20px;
+}
+
+header {
+	text-align: center;
+	padding: 30px 0;
+}
+
+header h1 li {
+	font-size: 50px;
+	text-align: center;
+	color: #000;
+}
+
+nav#nav div#nav_box {
+	font-size: 14px;
+	padding: 10px;
+	text-align: right;
+}
+
+nav#nav div#nav_box li {
+	display: inline-block;
+	margin: 0 10px;
+}
+
+nav#nav div#nav_box li a {
+	color: #333;
+}
+
+aside#aside h3 {
+	font-size: 22px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+aside#aside li {
+	font-size: 16px;
+	text-align: center;
+}
+
+aside#aside li a {
+	color: #000;
+	display: block;
+	padding: 10px 0;
+}
+
+aside#aside li a:hover {
+	text-decoration: none;
+	background: #eee;
+}
+
+footer#footer {
+	margin-top: 100px;
+	border-radius: 50px 50px 0 0;
+}
+
+footer#footer div#footer_box {
+	padding: 0 20px;
+}
+
+aside#aside li {
+	position: relative;
+}
+
+aside#aside li:hover {
+	background: #eee;
+}
+
+aside#aside li>ul.low {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 180px;
+}
+
+aside#aside li:hover>ul.low {
+	display: block;
+}
+
+aside#aside li:hover>ul.low li a {
+	background: #eee;
+	border: 1px solid #eee;
+}
+
+aside#aside li:hover>ul.low li a:hover {
+	background: #fff;
+}
+
+aside#aside li>ul.low li {
+	width: 180px;
+}
+
+section#content ul li {
+	margin: 10px 0;
+}
+
+section#content ul li img {
+	width: 250px;
+	height: 250px;
+}
+
+section#content ul li::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+section#content div.thumb {
+	float: left;
+	width: 250px;
+}
+
+section#content div.gdsInfo {
+	float: right;
+	width: calc(100% - 300px);
+}
+
+section#content div.gdsInfo {
+	font-size: 20px;
+	line-height: 2;
+}
+
+section#content div.gdsInfo span {
+	display: inline-block;
+	width: 100px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+section#content div.gdsInfo .delete {
+	text-align: right;
+}
+
+section#content div.gdsInfo .delete button {
+	font-size: 15px;
+	padding: 5px 10px;
+	border: 1px solid #eee;
+	background: #eee;
+}
+
+.allCheck {
+	float: left;
+	width: 200px;
+}
+
+.allCheck input {
+	width: 16px;
+	height: 16px;
+}
+
+.allCheck label {
+	margin-left: 10px;
+}
+
+.delBtn {
+	float: right;
+	width: 200px;
+	text-align: right;
+}
+
+.delBtn button {
+	font-size: 18px;
+	padding: 5px 10px;
+	border: 1px solid #eee;
+	background: #eee;
+}
+
+.checkBox {
+	float: left;
+	width: 30px;
+}
+
+.checkBox input {
+	width: 16px;
+	height: 16px;
+}
+
+.listResult {
+	padding: 20px;
+	background: #eee;
+}
+
+.listResult .sum {
+	float: left;
+	width: 45%;
+	font-size: 22px;
+}
+
+.listResult .orderOpen {
+	float: right;
+	width: 45%;
+	text-align: right;
+}
+
+.listResult .orderOpen button {
+	font-size: 18px;
+	padding: 5px 10px;
+	border: 1px solid #999;
+	background: #fff;
+}
+
+.listResult::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.orderInfo {
+	border: 5px solid #eee;
+	padding: 20px;
+	display: none;
+}
+
+.orderInfo .inputArea {
+	margin: 10px 0;
+}
+
+.orderInfo .inputArea label {
+	display: inline-block;
+	width: 120px;
+	margin-right: 10px;
+}
+
+.orderInfo .inputArea input {
+	font-size: 14px;
+	padding: 5px;
+}
+
+#userAddr2, #userAddr3 {
+	width: 250px;
+}
+
+.orderInfo .inputArea:last-child {
+	margin-top: 30px;
+}
+
+.orderInfo .inputArea button {
+	font-size: 20px;
+	border: 2px solid #ccc;
+	padding: 5px 10px;
+	background: #fff;
+	margin-right: 20px;
+}
+
+#sample2_postcode {
+	width: 80px;
+}
+
+#sample2_address, #sample2_detailAddress {
+	width: 250px;
+}
+
+.orderBtn {
+	float: right;
+	width: 200px;
+	text-align: right;
+}

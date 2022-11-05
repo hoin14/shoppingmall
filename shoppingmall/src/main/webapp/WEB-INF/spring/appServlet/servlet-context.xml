@@ -24,9 +24,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<!-- <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" 
-		/> -->
-
+<!-- 	<<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+ -->
 	<!-- 업로드 패스 설정 -->
 	<beans:bean class="java.lang.String" id="uploadPath" >
 		<beans:constructor-arg value="C:\workspace\ShoppingMall\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\shoppingmall\resources" />

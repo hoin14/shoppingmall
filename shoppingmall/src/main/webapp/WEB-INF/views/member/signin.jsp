@@ -1,30 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
-<head>
-<title>HOIN</title>
-</head>
+
+<link rel="stylesheet"href="/resources/css/signin.css">
+
 <body>
-	<section id="content">
+	<div class="main">
+		<h1 class="logo">HOIN</h1>
 		<form role="form" method="post" autocomplete="off">
-			<div class="input_area">
-				<label for="userId">아이디</label> <input type="email" id="userId"
-					name="userId" required="required" />
-			</div>
-
-			<div class="input_area">
-				<label for="userPass">패스워드</label> <input type="password"
-					id="userPass" name="userPass" required="required" />
-			</div>
-
+		<div class="container">
+			<input type="email" class="account" id="userId" name="userId" required="required" />
+			<input type="password"  class="account"  id="userPass" name="userPass" required="required" />
 			<button type="submit" id="signin_btn" name="signin_btn">로그인</button>
-
+		</div>
 			<c:if test="${msg == false}">
 				<p style="color: #f00;">로그인에 실패했습니다.</p>
 			</c:if>
 
 		</form>
-	</section>
+	</div>
 </body>
 </html>
